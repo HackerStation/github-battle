@@ -238,3 +238,7 @@ li {
 .player-info .link {
   margin: 0 10px;
 }
+
+.btn-space {
+  margin: 40px auto;
+}
