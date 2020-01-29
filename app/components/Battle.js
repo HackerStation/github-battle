@@ -88,18 +88,38 @@ class Battle extends React.Component {
     super(props);
 
     this.state = {
-      userDetails: null
+      playerOne: null,
+      playerTwo: null
     };
   }
 
-  getUserDetails = username => {
-    console.log(username);
+  handleSubmit = (id, player) => {
+    this.setState({
+      [id]: player
+    });
   };
 
   render() {
     return (
       <React.Fragment>
         <Instructions />
+        <div className='players-container'>
+          <h1 className='center-text header-lg'>Players</h1>
+          <div className='row space-around'>
+            {this.state.playerOne === null && (
+              <PlayerInput
+                label='Player One'
+                onSubmit={player => this.handleSubmit('playerOne', player)}
+              />
+            )}
+            {this.state.playerTwo === null && (
+              <PlayerInput
+                label='Player Two'
+                onSubmit={player => this.handleSubmit('playerTwo', player)}
+              />
+            )}
+          </div>
+        </div>
       </React.Fragment>
     );
   }
