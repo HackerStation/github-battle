@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { fetchPopularRepos } from '../utils/api';
 import Card from './Card';
+import Loading from './Loading';
 import {
   FaUser,
   FaStar,
@@ -134,7 +135,7 @@ class Popular extends React.Component {
           selected={selectedLanguage}
           onUpdateLanguage={this.updateLanguage}
         />
-        {this.isLoading() && <p>LOADING...</p>}
+        {this.isLoading() && <Loading />}
         {error && <p className='center-text error'>{error}</p>}
         {repos[selectedLanguage] && (
           <ReposGrid repos={repos[selectedLanguage]} />
