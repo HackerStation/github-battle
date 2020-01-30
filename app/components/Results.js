@@ -13,53 +13,106 @@ import {
   FaCode
 } from 'react-icons/fa';
 
-const ProfileList = ({ profile }) => {
-  const {
-    login,
-    name,
-    location,
-    company,
-    followers,
-    following,
-    public_repos
-  } = profile;
-  return (
-    <ul className='card-list'>
-      <li>
-        <FaUser color='rgb(239, 115, 115)' size={22} />
-        <a href={`https://www.github.com/${login}`}>{name}</a>
-      </li>
-      {location && (
-        <li>
-          <FaCompass color='rgb(144, 116, 255)' size={22} />
-          {location}
-        </li>
-      )}
-      {company && (
-        <li>
-          <FaBriefcase color='#795548' size={22} />
-          {company}
-        </li>
-      )}
-      <li>
-        <FaUsers color='rgb(129, 195, 245)' size={22} />
-        {followers.toLocaleString()} followers
-      </li>
-      <li>
-        <FaUserFriends color='rgb(64, 183, 95)' size={22} />
-        {following.toLocaleString()} following
-      </li>
-      <li>
-        <FaCode color='rgb(239, 174, 180)' size={22} />
-        {public_repos} repositories
-      </li>
-    </ul>
-  );
+const styles = {
+  container: {
+    position: 'relative',
+    display: 'flex'
+  },
+  tooltip: {
+    boxSizing: 'border-box',
+    position: 'absolute',
+    width: '160px',
+    bottom: '100%',
+    left: '50%',
+    marginLeft: '-80px',
+    borderRadius: '3px',
+    backgroundColor: 'hsla(0, 0%, 20%, 0.9)',
+    padding: '7px',
+    marginBottom: '5px',
+    color: '#fff',
+    textAlign: 'center',
+    fontSize: '14px'
+  }
 };
 
-ProfileList.propTypes = {
-  profile: PropTypes.object.isRequired
-};
+class ProfileList extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      hoveringLocation: false,
+      hoveringCompany: false
+    };
+  }
+  mouseOver = id => {
+    this.setState({
+      [id]: true
+    });
+  };
+  mouseOut = id => {
+    this.setState({
+      [id]: false
+    });
+  };
+  render() {
+    const { hoveringLocation, hoveringCompany } = this.state;
+    const {
+      login,
+      name,
+      location,
+      company,
+      followers,
+      following,
+      public_repos
+    } = this.props.profile;
+    return (
+      <ul className='card-list'>
+        <li>
+          <FaUser color='rgb(239, 115, 115)' size={22} />
+          <a href={`https://www.github.com/${login}`}>{name}</a>
+        </li>
+        {location && (
+          <li
+            onMouseOver={() => this.mouseOver('hoveringLocation')}
+            onMouseOut={() => this.mouseOut('hoveringLocation')}
+            style={styles.container}
+          >
+            {hoveringLocation === true && (
+              <div style={styles.tooltip}>User's Location</div>
+            )}
+            <FaCompass color='rgb(144, 116, 255)' size={22} />
+            {location}
+          </li>
+        )}
+        {company && (
+          <li
+            onMouseOver={() => this.mouseOver('hoveringCompany')}
+            onMouseOut={() => this.mouseOut('hoveringCompany')}
+            style={styles.container}
+          >
+            {hoveringCompany === true && (
+              <div style={styles.tooltip}>User's Company</div>
+            )}
+            <FaBriefcase color='#795548' size={22} />
+            {company}
+          </li>
+        )}
+        <li>
+          <FaUsers color='rgb(129, 195, 245)' size={22} />
+          {followers.toLocaleString()} followers
+        </li>
+        <li>
+          <FaUserFriends color='rgb(64, 183, 95)' size={22} />
+          {following.toLocaleString()} following
+        </li>
+        <li>
+          <FaCode color='rgb(239, 174, 180)' size={22} />
+          {public_repos} repositories
+        </li>
+      </ul>
+    );
+  }
+}
 
 class Results extends React.Component {
   constructor(props) {
