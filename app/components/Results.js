@@ -1,5 +1,6 @@
 import React from 'react';
 import { battle } from '../utils/api';
+import Card from './Card';
 import {
   FaUser,
   FaCompass,
@@ -9,7 +10,7 @@ import {
   FaCode
 } from 'react-icons/fa';
 
-const Card = props => {
+const ResultsCard = props => {
   const { label, score } = props;
   const {
     login,
@@ -23,15 +24,13 @@ const Card = props => {
     public_repos
   } = props.profile;
   return (
-    <div key={html_url} className='card bg-light'>
-      <h4 className='header-lg center-text'>{label}</h4>
-      <img src={avatar_url} className='avatar' alt={`Avatar for ${login}`} />
-      <h4 className='center-text'>{score.toLocaleString()}</h4>
-      <h2 className='center-text'>
-        <a href={html_url} className='link'>
-          {login}
-        </a>
-      </h2>
+    <Card
+      header={label}
+      subheader={`Score: ${score.toLocaleString()}`}
+      avatar={avatar_url}
+      href={html_url}
+      name={login}
+    >
       <ul className='card-list'>
         <li>
           <FaUser color='rgb(239, 115, 115)' size={22} />
@@ -62,7 +61,7 @@ const Card = props => {
           {public_repos} repositories
         </li>
       </ul>
-    </div>
+    </Card>
   );
 };
 
@@ -110,12 +109,12 @@ class Results extends React.Component {
 
     return (
       <div className='grid space-around container-sm'>
-        <Card
+        <ResultsCard
           label={winner.score === loser.score ? 'Tie' : 'Winner'}
           score={winner.score}
           profile={winner.profile}
         />
-        <Card
+        <ResultsCard
           label={winner.score === loser.score ? 'Tie' : 'Loser'}
           score={loser.score}
           profile={loser.profile}
