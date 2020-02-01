@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import Popular from './components/Popular';
 import Battle from './components/Battle';
+import Nav from './components/Nav';
 import { ThemeProvider } from './contexts/theme';
 // import { Route, BrowserRouter } from 'react-router-dom';
 // Component:
@@ -25,11 +26,14 @@ class App extends React.Component {
   }
   render() {
     return (
-      <ThemeProvider value={this.state.theme}>
-        <div className='container'>
-          {/* <Popular /> */}
-          {/* <Route exact path='/battle' component={Battle} /> */}
-          <Battle />
+      <ThemeProvider value={this.state}>
+        <div className={this.state.theme}>
+          <div className='container'>
+            <Nav />
+            {/* <Popular /> */}
+            {/* <Route exact path='/battle' component={Battle} /> */}
+            <Battle />
+          </div>
         </div>
       </ThemeProvider>
     );
