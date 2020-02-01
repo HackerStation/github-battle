@@ -50,7 +50,7 @@ const ReposGrid = ({ repos }) => {
         } = repo;
         const { login, avatar_url } = owner;
         return (
-          <li key={html_url} className='card bg-light'>
+          <li key={html_url}>
             <Card
               header={`#${index + 1}`}
               avatar={avatar_url}
