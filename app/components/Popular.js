@@ -4,6 +4,7 @@ import { fetchPopularRepos } from '../utils/api';
 import Card from './Card';
 import Loading from './Loading';
 import Tooltip from './Tooltip';
+import Hover from './Hover';
 import {
   FaUser,
   FaStar,
@@ -58,10 +59,14 @@ const ReposGrid = ({ repos }) => {
             >
               <ul className='card-list'>
                 <li>
-                  <Tooltip text='GitHub Username'>
-                    <FaUser color='rgb(255, 191, 116)' size={22} />
-                    <a href={`https://www.github.com/${login}`}>{login}</a>
-                  </Tooltip>
+                  <Hover>
+                    {hovering => (
+                      <Tooltip text='GitHub Username' hovering={hovering}>
+                        <FaUser color='rgb(255, 191, 116)' size={22} />
+                        <a href={`https://www.github.com/${login}`}>{login}</a>
+                      </Tooltip>
+                    )}
+                  </Hover>
                 </li>
                 <li>
                   <FaStar color='rgb(255, 215, 0)' size={22} />

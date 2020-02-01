@@ -2,6 +2,7 @@ import React from 'react';
 import Loading from './Loading';
 import Card from './Card';
 import Tooltip from './Tooltip';
+import Hover from './Hover';
 import { battle } from '../utils/api';
 import PropTypes from 'prop-types';
 import {
@@ -31,18 +32,26 @@ const ProfileList = props => {
       </li>
       {location && (
         <li>
-          <Tooltip text="User's Location">
-            <FaCompass color='rgb(144, 116, 255)' size={22} />
-            {location}
-          </Tooltip>
+          <Hover>
+            {hovering => (
+              <Tooltip text="User's Location" hovering={hovering}>
+                <FaCompass color='rgb(144, 116, 255)' size={22} />
+                {location}
+              </Tooltip>
+            )}
+          </Hover>
         </li>
       )}
       {company && (
         <li>
-          <Tooltip text="User's Company">
-            <FaBriefcase color='#795548' size={22} />
-            {company}
-          </Tooltip>
+          <Hover>
+            {hovering => (
+              <Tooltip text="User's Company" hovering={hovering}>
+                <FaBriefcase color='#795548' size={22} />
+                {company}
+              </Tooltip>
+            )}
+          </Hover>
         </li>
       )}
       <li>
