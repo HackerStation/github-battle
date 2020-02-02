@@ -90,15 +90,11 @@ const ReposGrid = ({ repos }) => {
 };
 
 class Popular extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      selectedLanguage: 'All',
-      repos: {},
-      error: null
-    };
-  }
+  state = {
+    selectedLanguage: 'All',
+    repos: {},
+    error: null
+  };
 
   componentDidMount() {
     this.updateLanguage(this.state.selectedLanguage);

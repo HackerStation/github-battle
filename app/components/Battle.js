@@ -48,13 +48,9 @@ const Instructions = () => {
 };
 
 class PlayerInput extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      username: ''
-    };
-  }
+  state = {
+    username: ''
+  };
 
   handleSubmit = e => {
     e.preventDefault();
@@ -142,14 +138,10 @@ PlayerPreview.propTypes = {
 };
 
 class Battle extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      playerOne: null,
-      playerTwo: null
-    };
-  }
+  state = {
+    playerOne: null,
+    playerTwo: null
+  };
 
   handleSubmit = (id, player) => {
     this.setState({

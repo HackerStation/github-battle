@@ -72,16 +72,12 @@ const ProfileList = props => {
 };
 
 class Results extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      winner: null,
-      loser: null,
-      error: null,
-      isLoading: true
-    };
-  }
+  state = {
+    winner: null,
+    loser: null,
+    error: null,
+    isLoading: true
+  };
 
   componentDidMount() {
     const { playerOne, playerTwo } = queryString.parse(
