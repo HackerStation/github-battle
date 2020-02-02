@@ -4,7 +4,8 @@ import Card from './Card';
 import Tooltip from './Tooltip';
 import Hover from './Hover';
 import { battle } from '../utils/api';
-import PropTypes from 'prop-types';
+import queryString from 'query-string';
+import { Link } from 'react-router-dom';
 import {
   FaUser,
   FaCompass,
@@ -83,7 +84,9 @@ class Results extends React.Component {
   }
 
   componentDidMount() {
-    const { playerOne, playerTwo } = this.props;
+    const { playerOne, playerTwo } = queryString.parse(
+      this.props.location.search
+    );
 
     battle([playerOne, playerTwo])
       .then(results => {
@@ -134,18 +137,12 @@ class Results extends React.Component {
             <ProfileList profile={loser.profile} />
           </Card>
         </div>
-        <button className='btn dark-btn btn-space' onClick={this.props.onReset}>
+        <Link to='/battle' className='btn dark-btn btn-space'>
           Reset
-        </button>
+        </Link>
       </React.Fragment>
     );
   }
 }
-
-Results.propTypes = {
-  playerOne: PropTypes.string.isRequired,
-  playerTwo: PropTypes.string.isRequired,
-  onReset: PropTypes.func.isRequired
-};
 
 export default Results;

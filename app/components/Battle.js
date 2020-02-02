@@ -6,8 +6,8 @@ import {
   FaTimesCircle
 } from 'react-icons/fa';
 import PropTypes from 'prop-types';
-import Results from './Results';
 import { ThemeConsumer } from '../contexts/theme';
+import { Link } from 'react-router-dom';
 
 const Instructions = () => {
   return (
@@ -147,8 +147,7 @@ class Battle extends React.Component {
 
     this.state = {
       playerOne: null,
-      playerTwo: null,
-      battle: false
+      playerTwo: null
     };
   }
 
@@ -165,69 +164,56 @@ class Battle extends React.Component {
   };
 
   render() {
-    const { playerOne, playerTwo, battle } = this.state;
-    if (battle) {
-      return (
-        <Results
-          playerOne={playerOne}
-          playerTwo={playerTwo}
-          onReset={() =>
-            this.setState({
-              playerOne: null,
-              playerTwo: null,
-              battle: false
-            })
-          }
-        />
-      );
-    } else {
-      return (
-        <React.Fragment>
-          <Instructions />
-          <div className='players-container'>
-            <h1 className='center-text header-lg'>Players</h1>
-            <div className='row space-around'>
-              {playerOne === null ? (
-                <PlayerInput
-                  label='Player One'
-                  onSubmit={player => this.handleSubmit('playerOne', player)}
-                />
-              ) : (
-                <PlayerPreview
-                  username={playerOne}
-                  label='Player One'
-                  onReset={() => {
-                    this.handleReset('playerOne');
-                  }}
-                />
-              )}
-              {playerTwo === null ? (
-                <PlayerInput
-                  label='Player Two'
-                  onSubmit={player => this.handleSubmit('playerTwo', player)}
-                />
-              ) : (
-                <PlayerPreview
-                  username={playerTwo}
-                  label='Player Two'
-                  onReset={() => {
-                    this.handleReset('playerTwo');
-                  }}
-                />
-              )}
-            </div>
-            {playerOne && playerTwo && (
-              <button
-                className='btn dark-btn btn-space'
-                onClick={() => this.setState({ battle: true })}
-              >
-                Battle
-              </button>
+    const { playerOne, playerTwo } = this.state;
+    return (
+      <React.Fragment>
+        <Instructions />
+        <div className='players-container'>
+          <h1 className='center-text header-lg'>Players</h1>
+          <div className='row space-around'>
+            {playerOne === null ? (
+              <PlayerInput
+                label='Player One'
+                onSubmit={player => this.handleSubmit('playerOne', player)}
+              />
+            ) : (
+              <PlayerPreview
+                username={playerOne}
+                label='Player One'
+                onReset={() => {
+                  this.handleReset('playerOne');
+                }}
+              />
+            )}
+            {playerTwo === null ? (
+              <PlayerInput
+                label='Player Two'
+                onSubmit={player => this.handleSubmit('playerTwo', player)}
+              />
+            ) : (
+              <PlayerPreview
+                username={playerTwo}
+                label='Player Two'
+                onReset={() => {
+                  this.handleReset('playerTwo');
+                }}
+              />
             )}
           </div>
-        </React.Fragment>
-      );
-    }
+          {playerOne && playerTwo && (
+            <Link
+              className='btn dark-btn btn-space'
+              to={{
+                pathname: '/battle/results',
+                search: `?playerOne=${playerOne}&playerTwo=${playerTwo}`
+              }}
+            >
+              Battle
+            </Link>
+          )}
+        </div>
+      </React.Fragment>
+    );
   }
 }
 
